@@ -155,6 +155,70 @@ let a = 10;
 a += 5; // same as a = a + 5
 console.log(a); // Output: 15
 //==================================================================
+// 📁 File: 2.0_day.js
+// 📅 Date: 22/07/2025
+// 🔥 Topic: Comparison & Bitwise Operators
+
+// ========== COMPARISON OPERATORS ==========
+
+// 1. == vs ===
+// == checks value only (performs type conversion)
+let num = 10;
+let str = "10";
+console.log(num == str); // true → value is same, type auto-converted
+
+// === checks value AND type
+console.log(num === str); // false → number vs string
+
+// 2. Relational comparison with type conversion
+let a1 = 10;
+let str1 = "30";
+console.log(a1 < str1); // true → "30" is converted to 30
+
+// 3. null and undefined comparison
+console.log(null == undefined);  // true → loosely equal
+console.log(null === undefined); // false → types differ
+
+// 4. ⚠️ Avoid chained comparisons like this:
+let a = 10;
+let b = "10";
+let c = 1;
+console.log(a == b == c); // false (unexpected behavior)
+// Explanation: (a == b) → true → becomes 1
+// Then: 1 == c → true
+// But JS evaluates left to right: (true == 1) → true
+
+// ========== BITWISE OPERATORS ==========
+
+// & → Bitwise AND
+console.log(3 & 2); // 2 → 011 & 010 = 010
+
+// | → Bitwise OR
+console.log(4 | 5); // 5 → 100 | 101 = 101
+
+// << → Left shift (multiply by 2^n)
+console.log(5 << 3); // 40 → 5 * 2^3 = 40
+
+// >> → Right shift (divide by 2^n)
+console.log(20 >> 2); // 5 → 20 / 2^2 = 5
+
+/* ========== QUICK SUMMARY ==========
+
+==      : Equal value (type converts)
+===     : Equal value and type (strict)
+null == undefined  : true
+null === undefined : false
+
+&       : Bitwise AND
+|       : Bitwise OR
+<<      : Left shift (× 2^n)
+>>      : Right shift (÷ 2^n)
+
+Avoid a == b == c → gives unexpected results due to type coercion
+
+*/
+//==========================================================
+
 
 // =========================
 // ✅ End of Combined Learning File
