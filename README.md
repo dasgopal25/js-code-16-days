@@ -155,6 +155,7 @@ let a = 10;
 a += 5; // same as a = a + 5
 console.log(a); // Output: 15
 //==================================================================
+
 // 📁 File: 2.0_day.js
 // 📅 Date: 22/07/2025
 // 🔥 Topic: Comparison & Bitwise Operators
@@ -212,7 +213,7 @@ null === undefined : false
 &       : Bitwise AND
 |       : Bitwise OR
 <<      : Left shift (× 2^n)
->>      : Right shift (÷ 2^n)
+//>>      : Right shift (÷ 2^n)
 
 Avoid a == b == c → gives unexpected results due to type coercion
 
