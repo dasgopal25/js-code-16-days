@@ -218,7 +218,51 @@ Avoid a == b == c → gives unexpected results due to type coercion
 
 */
 //==========================================================
+# JS Code 5.0 – Primitive vs Non-Primitive Data Types
 
+📅 **Lecture 5**  
+👨‍🏫 **By**: Rohit Negi Sir  
+📁 **File**: `5.0_day.js`  
+🎯 **Topic**: Mutable vs Immutable, Stack vs Heap Memory
+
+---
+
+## ✅ Topics Covered
+
+### 1. Primitive vs Non-Primitive Data Types
+
+| Type              | Nature      | Memory Location | Copy Behavior     |
+|-------------------|-------------|------------------|-------------------|
+| **Primitive**     | Immutable   | Stack            | Call by value     |
+| **Non-Primitive** | Mutable     | Heap             | Call by reference |
+
+---
+
+## 🧪 Code Example
+
+```js
+// 📌 Primitive → Immutable (Call by Value)
+let a = 20;
+let b = a;
+b = 40;
+
+console.log(a); // 20 → original value unchanged
+console.log(b); // 40 → changed value
+console.log();  // empty line
+
+// 📌 Non-Primitive → Mutable (Call by Reference)
+let obj1 = {
+    name: "gopal",
+    id: 230
+};
+
+let obj2 = obj1;
+obj2.id = 30; // modifies obj1 too
+
+console.log(obj1); // { name: 'gopal', id: 30 }
+console.log(obj2); // { name: 'gopal', id: 30 }
+console.log();     // empty line
+//============================================================
 
 // =========================
 // ✅ End of Combined Learning File
