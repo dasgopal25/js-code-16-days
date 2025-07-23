@@ -264,6 +264,104 @@ console.log(obj1); // { name: 'gopal', id: 30 }
 console.log(obj2); // { name: 'gopal', id: 30 }
 console.log();     // empty line
 //============================================================
+// 📁 File: 6.0_day.js
+// 📅 Lecture 6 – String in JS
+// 👨‍🏫 By: Rohit Sir
+
+// ========== 1. const with Primitive vs Non-Primitive ==========
+
+// ❌ Primitive values are immutable, cannot be reassigned if declared with const
+// const num = 10;
+// num = 20; // Error: Assignment to constant variable
+
+// ✅ Non-primitive (objects) are mutable, values can be changed
+const obj = {
+    id: 30,
+    name: "Gopal"
+};
+obj.id = 20;
+console.log(obj); // { id: 20, name: 'Gopal' }
+console.log();
+
+// ❌ Reassigning a const object entirely gives error
+const ob2 = {
+    id: 39
+};
+// obj = ob2; // Error: Assignment to constant variable
+
+// ========== 2. String Basics & Template Literals ==========
+let str1 = "hello Hello HELLO";
+let str2 = 'hii hii  hiii';
+let num = 20;
+
+let str3 = `print price is ${num}`;
+console.log(str3); // print price is 20
+console.log("hoo woo huu haa ", num); // hoo woo huu haa  20
+
+// ========== 3. String Concatenation ==========
+let s1 = "hello";
+let s2 = " Coder Army";
+console.log(s1 + s2); // hello Coder Army
+
+// ========== 4. String Length ==========
+console.log(s1.length); // 5
+
+// ========== 5. Escape Characters ==========
+let comment = "Myself Gopal das. \\n i am a college student";
+console.log(comment);
+console.log();
+console.log();
+
+// ========== 6. Character Access ==========
+let special = "Rohit";
+console.log(special[4]); // t
+console.log(special.charAt(3)); // i
+
+// ========== 7. Case Conversion ==========
+console.log(special.toLowerCase()); // rohit
+console.log(special.toUpperCase()); // ROHIT
+
+// ========== 8. Search Methods ==========
+let str4 = " gopal! bishnu! anjan! bishnu";
+console.log(str4.indexOf("bishnu"));      // 8
+console.log(str4.lastIndexOf("bishnu"));  // 24
+console.log(str4.includes("bishnu"));     // true
+console.log();
+console.log();
+
+// ========== 9. Slice & Substring ==========
+console.log(special.slice(0, 3));    // Roh
+console.log(special.slice(-5, 3));   // Roh (negative index works)
+console.log(special.substring(0, 3)); // Roh (no negative index support)
+
+// ========== 10. Replace, Split, Trim ==========
+let str6 = " gopal Dash ";
+console.log(str6.replace("Dash", "das"));  // gopal das
+console.log(str4.split("! "));             // [ ' gopal', 'bishnu', 'anjan', 'bishnu' ]
+console.log(str6.trim().length);           // 10 (after trim)
+console.log(str6.length);                  // 13 (with spaces)
+console.log();
+
+// ========== 11. String as Object ==========
+let latestString = new String("Hello Coder Army");
+console.log(latestString);          // [String: 'Hello Coder Army']
+console.log(typeof latestString);   // object
+
+/* ========== SUMMARY ==========
+
+1. const primitive → cannot reassign
+2. const object → values can change, reference cannot
+3. String methods:
+   - concat: a + b
+   - length: a.length
+   - access: a[i], charAt()
+   - case: toLowerCase(), toUpperCase()
+   - search: indexOf(), lastIndexOf(), includes()
+   - extract: slice(), substring()
+   - modify: replace(), trim(), split()
+
+*/
+//==================================================
 
 // =========================
 // ✅ End of Combined Learning File
