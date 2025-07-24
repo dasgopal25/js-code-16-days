@@ -362,6 +362,44 @@ console.log(typeof latestString);   // object
 
 */
 //==================================================
+// === Number Comparison ===
+let num1 = 231.54;
+let num2 = new Number(231);
+let num3 = new Number(231);
+
+console.log(num1 == num2);  // true -> num2 gets converted to primitive before comparison
+console.log(num2 == num3);  // false -> both are objects, no type conversion
+
+console.log(); // empty line for spacing
+
+// === Number Built-in Methods ===
+console.log(num1.toFixed(1));        // 231.5 -> rounded to 1 decimal
+console.log(num1.toPrecision(5));    // 231.54 -> total 5 digits precision
+console.log(num1.toString());        // "231.54" -> converts number to string
+console.log(num1.toExponential(1));  // "2.3e+2" -> exponential notation with 1 digit after decimal
+console.log(num1.valueOf());         // 231.54 -> returns primitive value
+
+console.log(); // empty line for spacing
+
+// === Math Object Usage ===
+// Some common constants
+// console.log(Math.E);
+// console.log(Math.LN10);
+// console.log(Math.PI);
+// console.log(Math.LOG10E);
+
+console.log(Math.floor(num1));       // 231 -> rounds down
+console.log(Math.ceil(num1));        // 232 -> rounds up
+
+// === Random Number Generation ===
+console.log(Math.floor(Math.random() * 10) + 1); 
+// prints a random number from 1 to 10
+
+// Print a random number from 40 to 50
+let min = 40;
+let max = 50;
+console.log(Math.floor(Math.random() * (max - min + 1)) + min);
+//======================================================
 
 // =========================
 // ✅ End of Combined Learning File
