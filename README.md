@@ -400,8 +400,138 @@ let min = 40;
 let max = 50;
 console.log(Math.floor(Math.random() * (max - min + 1)) + min);
 //======================================================
+# 📘 JavaScript Arrays – Lecture 8 (Rohit Sir)
 
-// =========================
+Learn how to work with arrays in JavaScript: creation, access, clone, modify, search, and transform.
+
+---
+
+## 📌 1. Array Declaration & Access
+```js
+let arr = [2, 3, 4, 5, 5, "Gopal", true];
+
+console.log(arr[5]);         // Access 6th element: "Gopal"
+console.log(arr.at(-1));     // Access last element using negative index: true
+console.log(arr.length);     // Length of array: 7
+```
+
+---
+
+## 🧪 2. Cloning Arrays (structuredClone)
+```js
+const newarr = structuredClone(arr);
+console.log(newarr);         // Deep copy of arr
+console.log(arr == newarr);  // false – different memory
+console.log(arr === newarr); // false
+```
+
+---
+
+## ➕➖ 3. Modify Array (Add/Remove)
+
+### Add Elements
+```js
+arr.unshift(20);             // Add 20 at the start
+arr.push(39);                // Add 39 at the end
+arr.push(40);                // Add 40 at the end
+console.log(arr);
+```
+
+### Remove Elements
+```js
+arr.shift();                 // Remove first element
+arr.pop();                   // Remove last element
+delete arr[5];               // Delete specific index (makes it undefined)
+console.log(arr);
+```
+
+---
+
+## 🔍 4. Search in Array
+```js
+console.log(arr.indexOf(5));        // First index of 5
+console.log(arr.lastIndexOf(5));    // Last index of 5
+```
+
+---
+
+## 🧰 5. Slice vs Splice
+
+### `splice()` – Modifies original array
+```js
+const fruits = ["Banana", "Orange", "Apple", "Mango"];
+fruits.splice(0, 1);         // Remove 1 item from index 0
+console.log(fruits);         // ["Orange", "Apple", "Mango"]
+```
+
+### `slice()` – Does NOT modify original
+```js
+console.log(arr.slice(0, 4));   // Returns new array from index 0 to 3
+```
+
+---
+
+## 🛠️ 6. Splice with Custom Array
+```js
+let arr1 = [78, 54, 34, 67, "gopal", "ikdyh", 95, 47];
+console.log(arr1);                      // Original
+console.log(arr1.splice(4, arr1.length - 1)); // Remove from index 4 onward
+console.log(arr1);                      // Updated array
+```
+
+---
+
+## 🔄 7. Convert Arrays
+
+### To String
+```js
+console.log(arr.toString());    // "2,3,4,5,5,,true"
+console.log(arr.join("*"));     // "2*3*4*5*5**true"
+```
+
+### Concatenate Arrays
+```js
+let arr2 = [6, 7, 5, 7];
+let arr3 = [7, 3, 4, 5];
+let arr4 = arr1.concat(arr2, arr3);
+console.log(arr4);              // Merged array
+```
+
+---
+
+## 🔁 8. Flatten 2D Arrays
+```js
+let a = [5, 6, [7, 8], 6, 5];
+console.log(a.flat(1));         // [5, 6, 7, 8, 6, 5]
+```
+
+---
+
+## 🆑 9. Create Array Using `new` Keyword
+```js
+let ac = new Array(2, 45, 6, 43, 23, 34);  // Normal array
+let ac1 = new Array(2);                   // Creates empty array of length 2
+console.log(ac);    // [2, 45, 6, 43, 23, 34]
+console.log(ac1);   // [ <2 empty items> ]
+```
+
+---
+
+## 🧠 Summary
+
+| Operation          | Description                              |
+|-------------------|------------------------------------------|
+| `push`, `pop`     | Add/remove from end                      |
+| `unshift`, `shift`| Add/remove from start                    |
+| `slice`           | Copies part of array (non-destructive)   |
+| `splice`          | Removes/adds items (destructive)         |
+| `indexOf`, `includes` | Search items                        |
+| `concat`, `flat`  | Combine or flatten arrays                |
+| `structuredClone` | Deep clone of array                      |
+
+// ==================================================================================
+
+//===================================================
 // ✅ End of Combined Learning File
 // More topics will be added soon...
 // =========================
