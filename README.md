@@ -530,7 +530,185 @@ console.log(ac1);   // [ <2 empty items> ]
 | `structuredClone` | Deep clone of array                      |
 
 // ==================================================================================
+# JavaScript Date Object - Lecture 9
 
+**Instructor:** Rohit Sir  
+**Topic:** Working with Date Objects in JavaScript
+
+## Overview
+
+This document covers the fundamental concepts and methods of JavaScript Date objects, including date formatting, manipulation, and practical applications like countdown timers.
+
+## Table of Contents
+
+1. [Creating Date Objects](#creating-date-objects)
+2. [Date Formatting Methods](#date-formatting-methods)
+3. [Getting Date Components](#getting-date-components)
+4. [Working with Timestamps](#working-with-timestamps)
+5. [Date Calculations](#date-calculations)
+6. [Practical Example: Countdown Timer](#practical-example-countdown-timer)
+
+## Creating Date Objects
+
+```javascript
+// Current date and time
+let date = new Date();
+
+// Specific date
+let specificDate = new Date("2005-07-31");
+```
+
+## Date Formatting Methods
+
+### toDateString()
+Returns a human-readable date string (without time).
+
+```javascript
+console.log(date.toDateString()); 
+// Output: "Fri Jul 25 2025"
+```
+
+### toString()
+Returns the complete date and time as a string.
+
+```javascript
+console.log(date.toString()); 
+// Output: "Fri Jul 25 2025 14:30:45 GMT+0530 (India Standard Time)"
+```
+
+### toISOString()
+Returns the date in ISO 8601 format (UTC).
+
+```javascript
+console.log(date.toISOString()); 
+// Output: "2025-07-25T09:00:45.123Z"
+```
+
+## Type Checking
+
+```javascript
+console.log(typeof date); 
+// Output: "object"
+```
+
+## Getting Date Components
+
+### Important Note: January 1, 1970 (Unix Epoch)
+The Unix timestamp starts from January 1, 1970, 00:00:00 UTC. This is the reference point for JavaScript date calculations.
+
+### Available Methods
+
+```javascript
+// Get day of the week (0 = Sunday, 1 = Monday, ..., 6 = Saturday)
+console.log(date.getDay());
+
+// Get day of the month (1-31)
+console.log(date.getDate());
+
+// Get month (0 = January, 1 = February, ..., 11 = December)
+console.log(date.getMonth());
+
+// Get full year (4 digits)
+console.log(date.getFullYear());
+
+// Get minutes (0-59)
+console.log(date.getMinutes());
+```
+
+### Quick Reference Table
+
+| Method | Returns | Range |
+|--------|---------|-------|
+| `getDay()` | Day of week | 0-6 (Sun-Sat) |
+| `getDate()` | Day of month | 1-31 |
+| `getMonth()` | Month | 0-11 (Jan-Dec) |
+| `getFullYear()` | Year | Full year |
+| `getHours()` | Hours | 0-23 |
+| `getMinutes()` | Minutes | 0-59 |
+| `getSeconds()` | Seconds | 0-59 |
+
+## Working with Timestamps
+
+### Getting Current Timestamp
+
+```javascript
+const now = Date.now();
+console.log(now); 
+// Output: Number of milliseconds since January 1, 1970
+```
+
+### Calculating Date Differences
+
+```javascript
+let pastDate = new Date("2005-07-31");
+let currentDate = new Date();
+
+// Calculate difference in milliseconds
+let diffInMs = currentDate - pastDate;
+console.log(diffInMs);
+```
+
+## Practical Example: Countdown Timer
+
+### Olympic Games 2028 Countdown
+
+```javascript
+// Target date: Olympic Games 2028
+let olympicDate = new Date("2028-07-21");
+let currentDate = new Date();
+
+// Calculate time difference
+let timeDifference = olympicDate - currentDate;
+
+// Convert milliseconds to readable format
+const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+const hours = Math.floor((timeDifference / (1000 * 60 * 60)) % 24);
+const minutes = Math.floor((timeDifference / (1000 * 60)) % 60);
+const seconds = Math.floor((timeDifference / 1000) % 60);
+
+console.log(`Olympic Countdown: Days: ${days}, Hours: ${hours}, Minutes: ${minutes}, Seconds: ${seconds}`);
+```
+
+### Breakdown of Time Calculations
+
+- **Days:** `timeDifference / (1000 * 60 * 60 * 24)`
+  - 1000 ms = 1 second
+  - 60 seconds = 1 minute
+  - 60 minutes = 1 hour
+  - 24 hours = 1 day
+
+- **Hours:** `(timeDifference / (1000 * 60 * 60)) % 24`
+  - Get total hours, then remainder when divided by 24
+
+- **Minutes:** `(timeDifference / (1000 * 60)) % 60`
+  - Get total minutes, then remainder when divided by 60
+
+- **Seconds:** `(timeDifference / 1000) % 60`
+  - Get total seconds, then remainder when divided by 60
+
+## Key Concepts to Remember
+
+1. **Month Indexing:** JavaScript months are 0-indexed (January = 0, December = 11)
+2. **Day of Week:** Sunday = 0, Monday = 1, ..., Saturday = 6
+3. **Timestamps:** Measured in milliseconds since Unix epoch (Jan 1, 1970)
+4. **Date Arithmetic:** Subtracting dates gives milliseconds difference
+5. **Modulo Operator (%):** Used to get remainder for time calculations
+
+## Common Use Cases
+
+- Creating countdown timers
+- Calculating age or time differences
+- Formatting dates for display
+- Working with APIs that use timestamps
+- Scheduling and time-based functionality
+
+## Additional Methods to Explore
+
+- `getHours()`, `getSeconds()`, `getMilliseconds()`
+- `setDate()`, `setMonth()`, `setFullYear()` (for modifying dates)
+- `toLocaleDateString()`, `toLocaleTimeString()` (for localized formatting)
+- `getTimezoneOffset()` (for timezone handling)
+//=============================================
 //===================================================
 // ✅ End of Combined Learning File
 // More topics will be added soon...
