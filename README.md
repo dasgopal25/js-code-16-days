@@ -709,6 +709,281 @@ console.log(`Olympic Countdown: Days: ${days}, Hours: ${hours}, Minutes: ${minut
 - `toLocaleDateString()`, `toLocaleTimeString()` (for localized formatting)
 - `getTimezoneOffset()` (for timezone handling)
 //=============================================
+# JavaScript Objects - Complete Guide
+
+## Table of Contents
+1. [Object Creation Methods](#object-creation-methods)
+2. [Property Access](#property-access)
+3. [Object Manipulation](#object-manipulation)
+4. [Class/Constructor Pattern](#classconstructor-pattern)
+5. [Object Utility Methods](#object-utility-methods)
+6. [Object Immutability](#object-immutability)
+
+## Object Creation Methods
+
+### 1. Object Literal Syntax
+The most common and straightforward way to create objects in JavaScript.
+
+```javascript
+const obj = {
+    0: 20,
+    7: 98,
+    8: 56,
+    name: "Gopal",
+    age: 20,
+    "gender": "Male",
+    "phone number": 6295432911,
+}
+```
+
+**Key Points:**
+- Properties can be numbers, strings, or identifiers
+- Numeric keys are automatically converted to strings
+- Property names with spaces must be quoted
+- Values can be any JavaScript data type
+
+### 2. Object Constructor
+Creating objects using the `new Object()` constructor.
+
+```javascript
+const obj1 = new Object();
+obj1.name = "Bishnu";
+obj1.age = 20;
+obj1.gender = "other";
+obj1.roll = 107;
+```
+
+**Key Points:**
+- Creates an empty object initially
+- Properties are added dynamically
+- Less efficient than object literal syntax
+- Mainly used for dynamic object creation
+
+---
+
+## Property Access
+
+### Dot Notation vs Bracket Notation
+
+```javascript
+// ✅ Valid dot notation
+console.log(obj.name);        // "Gopal"
+
+// ✅ Valid bracket notation
+console.log(obj["gender"]);   // "Male"
+console.log(obj["phone number"]); // 6295432911
+
+// ❌ Invalid - numeric keys with dot notation
+// console.log(obj.0);        // SyntaxError
+// console.log(obj.7);        // SyntaxError
+
+// ✅ Valid - numeric keys with bracket notation
+console.log(obj[8]);          // 56
+
+// ❌ Invalid - spaces in property names
+// console.log(obj.phone number);  // SyntaxError
+// console.log(obj."phone number"); // SyntaxError
+```
+
+**Rules:**
+- **Dot notation**: Only works with valid JavaScript identifiers
+- **Bracket notation**: Works with any string, including spaces and numbers
+- Use bracket notation for dynamic property access or special characters
+
+---
+
+## Object Manipulation
+
+### Adding, Updating, and Deleting Properties
+
+```javascript
+// Adding properties
+obj1.newProperty = "New Value";
+
+// Updating properties
+obj1.gender = "Male";
+
+// Deleting properties
+delete obj1.roll;
+```
+
+**Key Points:**
+- Properties can be added anytime after object creation
+- Use `delete` operator to remove properties
+- Deletion returns `true` if successful, `false` otherwise
+
+---
+
+## Class/Constructor Pattern
+
+### ES6 Class Syntax
+
+```javascript
+class People {
+    constructor(na, ag, gen) {
+        this.name = na;
+        this.age = ag;
+        this.gender = gen;
+    }
+}
+
+let pro1 = new People("Anjan", 20, "male");
+```
+
+**Benefits:**
+- Cleaner, more readable syntax
+- Built-in constructor method
+- Supports inheritance and method definitions
+- Modern JavaScript standard
+
+---
+
+## Object Utility Methods
+
+### Object.keys()
+Returns an array of object's property names.
+
+```javascript
+const keys = Object.keys(obj);
+// Output: ['0', '7', '8', 'name', 'age', 'gender', 'phone number']
+```
+
+### Object.values()
+Returns an array of object's property values.
+
+```javascript
+const values = Object.values(obj);
+// Output: [20, 98, 56, 'Gopal', 20, 'Male', 6295432911]
+```
+
+### Object.entries()
+Returns an array of [key, value] pairs.
+
+```javascript
+const entries = Object.entries(obj);
+// Output: [['0', 20], ['7', 98], ['8', 56], ['name', 'Gopal'], ...]
+```
+
+### Object.assign()
+Copies properties from source objects to target object.
+
+```javascript
+let one = {a: 1, b: 2};
+let second = {c: 3, d: 4};
+let three = {f: 5, e: 6};
+
+let merged = Object.assign({}, one, second, three);
+// Output: {a: 1, b: 2, c: 3, d: 4, f: 5, e: 6}
+```
+
+### Spread Operator (...)
+Modern alternative to Object.assign().
+
+```javascript
+let merged = {...one, ...second, ...three};
+// Same result as Object.assign()
+```
+
+**Spread Operator Advantages:**
+- More concise syntax
+- Better readability
+- Supports nested spreading
+- Part of ES6+ standard
+
+---
+
+## Object Immutability
+
+### Object.freeze()
+Makes an object completely immutable.
+
+```javascript
+Object.freeze(one);
+one.a = 3;        // Silently fails (throws error in strict mode)
+console.log(one); // {a: 1, b: 2} - unchanged
+```
+
+**Characteristics:**
+- Prevents adding new properties
+- Prevents deleting existing properties
+- Prevents modifying existing properties
+- Returns the same object
+
+### Object.seal()
+Prevents adding/deleting properties but allows modification.
+
+```javascript
+Object.seal(one);
+delete one.a;     // Fails - cannot delete
+one.a = 100;      // ✅ Succeeds - can modify
+one.newProp = 5;  // Fails - cannot add
+```
+
+**Characteristics:**
+- Prevents adding new properties
+- Prevents deleting existing properties
+- ✅ Allows modifying existing properties
+- Returns the same object
+
+---
+
+## Best Practices
+
+1. **Use object literal syntax** for simple object creation
+2. **Use bracket notation** for dynamic property access or special characters
+3. **Use spread operator** instead of Object.assign() for merging objects
+4. **Use const** for objects that won't be reassigned (contents can still change)
+5. **Use descriptive property names** without spaces when possible
+6. **Consider Object.freeze()** for truly immutable objects
+7. **Use classes** for objects that need methods and inheritance
+
+---
+
+## Common Pitfalls
+
+1. **Numeric property access**: Always use bracket notation for numeric keys
+2. **Property names with spaces**: Must use bracket notation
+3. **Object.freeze() vs Object.seal()**: Understand the difference
+4. **Delete operator**: Only works on object properties, not variables
+5. **Object.assign() shallow copy**: Only copies top-level properties
+
+---
+
+## Example Output
+
+When you run the provided code, you'll see:
+```
+{
+  '0': 20,
+  '7': 98,
+  '8': 56,
+  name: 'Gopal',
+  age: 20,
+  gender: 'Male',
+  'phone number': 6295432911
+}
+Gopal
+Male
+6295432911
+56
+
+{ name: 'Bishnu', age: 20, gender: 'other', roll: 107 }
+Bishnu
+{ name: 'Bishnu', age: 20, gender: 'other' }
+{ name: 'Bishnu', age: 20, gender: 'Male' }
+
+People { name: 'Anjan', age: 20, gender: 'male' }
+
+['0', '7', '8', 'name', 'age', 'gender', 'phone number']
+[20, 98, 56, 'Gopal', 20, 'Male', 6295432911]
+[['0', 20], ['7', 98], ['8', 56], ['name', 'Gopal'], ['age', 20], ['gender', 'Male'], ['phone number', 6295432911]]
+{ a: 1, b: 2, c: 3, d: 4, f: 5, e: 6 }
+
+{ a: 1, b: 2, c: 3, d: 4, f: 5, e: 6 }
+
+{ a: 1, b: 2 }
+1
+```
 //===================================================
 // ✅ End of Combined Learning File
 // More topics will be added soon...
