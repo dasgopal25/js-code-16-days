@@ -984,6 +984,376 @@ People { name: 'Anjan', age: 20, gender: 'male' }
 { a: 1, b: 2 }
 1
 ```
+//======================================================
+# JavaScript Objects Part 2 - Lecture 11
+
+This README covers advanced JavaScript object concepts including shallow/deep copying, destructuring, and prototype chaining.
+
+## Table of Contents
+- [Object Copying](#object-copying)
+- [Object Destructuring](#object-destructuring)
+- [Array Destructuring](#array-destructuring)
+- [Prototype Chaining](#prototype-chaining)
+- [Code Examples](#code-examples)
+
+## Object Copying
+
+### Shallow Copy
+A shallow copy creates a new object but references to nested objects remain the same.
+
+### Deep Copy
+A deep copy creates a completely independent copy of an object, including all nested objects.
+
+// Short Example: Shallow Copy vs Deep Copy
+
+const original = {
+    name: "John",
+    age: 25,
+    address: {
+        city: "Delhi",
+        pin: 110001
+    }
+};
+
+console.log("=== SHALLOW COPY ===");
+// Shallow copy using spread operator
+const shallowCopy = { ...original };
+
+// Change nested property
+shallowCopy.address.city = "Mumbai";
+
+console.log("Original city:", original.address.city); // "Mumbai" - CHANGED!
+console.log("Copy city:", shallowCopy.address.city);   // "Mumbai"
+
+console.log("\n=== DEEP COPY ===");
+// Deep copy using structuredClone()
+const deepCopy = structuredClone(original);
+
+// Change nested property
+deepCopy.address.city = "Kolkata";
+
+console.log("Original city:", original.address.city); // "Mumbai" - NO CHANGE
+console.log("Deep copy city:", deepCopy.address.city); // "Kolkata"
+
+console.log("\n=== KEY DIFFERENCE ===");
+console.log("Shallow copy: nested objects share same reference");
+console.log("Deep copy: completely independent copy");
+
+```javascript
+// Deep copy using structuredClone()
+let obj3 = structuredClone(originalObject);
+```
+
+**Note:** `structuredClone()` is a modern method for creating deep copies of objects.
+
+## Object Destructuring
+
+Object destructuring allows you to extract properties from objects and assign them to variables.
+
+### Basic Destructuring
+```javascript
+let obj = {
+    name: "Gopal Das",
+    age: 20,
+    gender: "Male",
+    amount: 400,
+    aadhar: 2474784681
+}
+
+const { name, age, gender } = obj;
+console.log(name, age, gender);
+```
+
+### Destructuring with Renaming
+```javascript
+const { name: full_name, age: Umar, gender: sex } = obj;
+console.log(full_name, Umar, sex);
+```
+
+### Rest Operator in Destructuring
+The rest operator (`...`) collects remaining properties into a new object.
+
+```javascript
+const { name, age, ...obj1 } = obj;
+console.log(obj1.aadhar); // Access remaining properties
+```
+
+### Nested Object Destructuring
+```javascript
+let obj2 = {
+    name: "Gopal Das",
+    age: 20,
+    info: {
+        aadhar: 2474784681,
+        card: 837
+    }
+}
+
+const { name, info: { aadhar: u } } = obj2;
+console.log(name, u);
+```
+
+## Array Destructuring
+
+Array destructuring allows you to extract values from arrays and assign them to variables.
+
+```javascript
+let arr = [7, 54, 9, [5, 3], 3];
+const [first, second, , Three] = arr;
+console.log(first, Three[1]); // Output: 7, 3
+```
+
+**Key Points:**
+- Use commas to skip elements you don't need
+- Can destructure nested arrays
+- Position matters in array destructuring
+
+## Prototype Chaining
+
+Every object and array in JavaScript has a prototype that gets added automatically when created. This creates a prototype chain that allows objects to inherit properties and methods.
+
+**Important:** When you create an Object or Array, its prototype is automatically added, enabling inheritance and method access.
+
+## Code Examples
+
+### Complete Working Example
+```javascript
+// Object Destructuring Examples
+let obj = {
+    name: "Gopal Das",
+    age: 20,
+    gender: "Male",
+    amount: 400,
+    aadhar: 2474784681
+}
+
+// Basic destructuring
+const { name, age, gender } = obj;
+
+// Destructuring with renaming
+const { name: full_name, age: Umar, gender: sex } = obj;
+
+// Rest operator usage
+const { name, age, ...obj1 } = obj;
+
+// Nested object destructuring
+let obj2 = {
+    name: "Gopal Das",
+    age: 20,
+    info: {
+        aadhar: 2474784681,
+        card: 837
+    }
+}
+
+const { name, info: { aadhar: u } } = obj2;
+
+// Array destructuring
+let arr = [7, 54, 9, [5, 3], 3];
+const [first, second, , Three] = arr;
+console.log(first, Three[1]);
+```
+
+## Best Practices
+
+1. **Use meaningful variable names** when destructuring
+2. **Be careful with nested destructuring** - it can become complex
+3. **Use rest operator** to collect remaining properties efficiently
+4. **Remember array destructuring is position-based** while object destructuring is property-name-based
+5. **Consider using `structuredClone()`** for deep copying when needed
+
+## Browser Compatibility
+
+- **Object Destructuring:** Supported in all modern browsers
+- **Array Destructuring:** Supported in all modern browsers
+- **Rest/Spread Operator:** ES6+ (widely supported)
+- **structuredClone():** Modern browsers (check compatibility for older browsers)
+//==========================================================================
+# JavaScript Functions - Complete Guide
+
+**Lecture 12: Functions in JavaScript (Rohit Sir)**
+
+## Table of Contents
+1. [Normal Functions](#normal-functions)
+2. [Arrow Functions](#arrow-functions)
+3. [Function Variables](#function-variables)
+4. [Rest Operator in Functions](#rest-operator-in-functions)
+5. [Key Concepts](#key-concepts)
+
+---
+
+## Normal Functions
+
+### Basic Function Declaration
+```javascript
+function first(){
+    console.log("hello function");
+}
+first(); // Call the function
+```
+
+**Notes:**
+- Use `function` keyword to declare
+- Function name followed by parentheses `()`
+- Code block inside curly braces `{}`
+- Call function by writing its name with `()`
+
+### Function with Parameters
+```javascript
+function add(number, number1){
+    console.log(number + number1);
+}
+add(4, 5); // Output: 9
+```
+
+**Notes:**
+- Parameters are variables that receive values
+- Pass arguments when calling the function
+- Multiple parameters separated by commas
+
+---
+
+## Arrow Functions
+
+### Basic Arrow Function
+```javascript
+const fun = () => {
+    console.log("Myself Arrow function");
+}
+fun();
+```
+
+**Notes:**
+- Modern ES6 syntax
+- Use `const` to store arrow function
+- `() =>` syntax instead of `function` keyword
+- More concise than normal functions
+
+### One-Line Arrow Function
+```javascript
+const one_line = number => number + number;
+console.log(one_line(4)); // Output: 8
+```
+
+**Notes:**
+- Single parameter doesn't need parentheses
+- No curly braces needed for single expressions
+- Automatically returns the result
+- Very compact syntax
+
+---
+
+## Function Variables
+
+### Storing Function in Variable
+```javascript
+const fun12 = function(){
+    console.log("Store function in a variable");
+}
+fun12();
+```
+
+**Notes:**
+- Functions can be stored in variables
+- Called "function expressions"
+- Use the variable name to call the function
+- Useful for passing functions as arguments
+
+---
+
+## Rest Operator in Functions
+
+### Using Rest Operator (...) for Multiple Parameters
+```javascript
+const sum = function(...number){
+    let result = 0;
+    for(let i = 0; i < number.length; i++){
+        result += number[i];
+    }
+    console.log(result);
+}
+
+sum(5, 6, 7);        // Output: 18
+sum(3, 8, 9, 8, 2, 23); // Output: 53
+sum(74, 59, 72, 10); // Output: 215
+```
+
+**Notes:**
+- `...number` collects all arguments into an array
+- Can accept unlimited number of parameters
+- Use `array.length` to get total arguments
+- Loop through the array to process all values
+
+---
+
+## Key Concepts
+
+### Function Types Comparison
+
+| Feature | Normal Function | Arrow Function | Function Expression |
+|---------|----------------|----------------|-------------------|
+| Syntax | `function name(){}` | `const name = () => {}` | `const name = function(){}` |
+| Hoisting | ✅ Yes | ❌ No | ❌ No |
+| `this` binding | Dynamic | Lexical | Dynamic |
+| Best for | General use | Short functions | Callbacks |
+
+### When to Use Each Type
+
+**Normal Functions:**
+- When you need function hoisting
+- For methods in objects
+- When `this` context matters
+
+**Arrow Functions:**
+- For short, simple functions
+- Callback functions
+- When you want lexical `this`
+
+**Function Expressions:**
+- When you need to store functions conditionally
+- For creating closures
+- When function should not be hoisted
+
+### Best Practices
+
+1. **Use descriptive function names**
+   ```javascript
+   // Good
+   function calculateTotal() {}
+   
+   // Avoid
+   function calc() {}
+   ```
+
+2. **Keep functions small and focused**
+   - One function should do one thing
+   - Easy to test and debug
+
+3. **Use arrow functions for simple operations**
+   ```javascript
+   const double = x => x * 2;
+   const isEven = num => num % 2 === 0;
+   ```
+
+4. **Use rest operator when parameter count varies**
+   ```javascript
+   const average = (...numbers) => {
+       const sum = numbers.reduce((a, b) => a + b, 0);
+       return sum / numbers.length;
+   }
+   ```
+
+---
+
+## Practice Exercises
+
+Try these exercises to master JavaScript functions:
+
+1. Create a function that calculates the area of a rectangle
+2. Write an arrow function that checks if a number is positive
+3. Use rest operator to find the maximum number from multiple arguments
+4. Create a function expression that reverses a string
+//===============================================================
 //===================================================
 // ✅ End of Combined Learning File
 // More topics will be added soon...
