@@ -1354,6 +1354,133 @@ Try these exercises to master JavaScript functions:
 3. Use rest operator to find the maximum number from multiple arguments
 4. Create a function expression that reverses a string
 //===============================================================
+// 📘 Lecture 13: If-Else and Loops in JavaScript (Rohit Sir)
+
+// ✅ IF-ELSE STATEMENTS
+// Simple if-else
+let age = 7;
+if(age >= 18) {
+    console.log("Eligible for vote");
+} else {
+    console.log("Not Eligible for vote");
+}
+
+// if-else if-else ladder
+age = 49;
+if(age < 18) {
+    console.log("KID");
+} else if(age > 45) {
+    console.log("OLD");
+} else {
+    console.log("YOUNG");
+}
+
+// ✅ SWITCH CASE
+// Used for multiple specific conditions
+let day = 0;
+switch(day) {
+    case 0: console.log("SUNDAY"); break;
+    case 1: console.log("Monday"); break;
+    case 2: console.log("Tuesday"); break;
+    case 3: console.log("Wednesday"); break;
+    case 4: console.log("Thursday"); break;
+    case 5: console.log("Friday"); break;
+    case 6: console.log("Saturday"); break;
+    default: console.log("Not a Valid Day");
+}
+
+// ✅ FOR LOOP
+// Repeats a block of code
+for(let i = 0; i < 20; i++) {
+    console.log("Hello Coder Army");
+}
+
+// Sum of first 10 natural numbers
+let sum = 0;
+for(let i = 1; i <= 10; i++) {
+    sum += i;
+}
+console.log("Sum of 1 to 10 is:", sum);
+
+// ✅ NESTED FOR LOOP
+// Pattern: print 12345 in 6 rows
+for(let j = 0; j < 6; j++) {
+    let row = "";
+    for(let i = 1; i <= 5; i++) {
+        row += i;
+    }
+    console.log(row);
+}
+
+// ✅ WHILE LOOP
+let i = 1;
+while(i < 6) {
+    console.log(i);
+    i++;
+}
+
+// ✅ LOOP OVER ARRAY
+let arr = [10, 30, 40, 50];
+for(let i = 0; i < arr.length; i++) {
+    console.log(arr[i]);
+}
+
+// ✅ OBJECT + FOR-IN LOOP
+const obj = {
+    name: "rohit",
+    age: 30,
+    amount: 420,
+    city: "kotdwar"
+};
+
+const keys = Object.keys(obj);
+for(let i = 0; i < keys.length; i++) {
+    console.log(keys[i], ":", obj[keys[i]]);
+}
+
+// ✅ SCOPE EXAMPLES
+// Global Scope
+let a = 10;
+var b = 20;
+const c = 30;
+
+function greet() {
+    let a = 10;
+    var b = 20;
+    const c = 30;
+    console.log("Hello Function Scope", a, b, c);
+}
+greet();
+// console.log(c); // ❌ Error: Block scope
+
+// Redeclaration of var allowed
+var amount = 400;
+var amount = 20;
+var amount = 10;
+console.log("Final amount:", amount);
+
+// Block scope with let/const
+if(true){
+    let amount = 30;
+    console.log("Inside block:", amount);
+}
+console.log("Outside block:", amount);
+
+// ✅ FUNCTION DECLARATIONS
+
+// Normal function (can be hoisted)
+function greetAgain(){
+    console.log("Hello Greet");
+}
+greetAgain();
+
+// Function expression (not hoisted)
+const meet = function(){
+    console.log("Hello Meet");
+};
+meet();
+//======================================================
+
 //===================================================
 // ✅ End of Combined Learning File
 // More topics will be added soon...
