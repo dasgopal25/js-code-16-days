@@ -1480,6 +1480,109 @@ const meet = function(){
 };
 meet();
 //======================================================
+# 📘 Lecture 14: Advanced Loops in JavaScript
+
+## 🖁 for...in Loop
+
+Used to iterate over **keys** in an object (including inherited enumerable ones).
+
+```js
+let obj = {
+    name: "rohan",
+    age: 23,
+    gender: "male",
+    city: "Dantan"
+};
+
+for(let key in obj){
+    console.log(key, obj[key]);
+}
+```
+
+## 🧱 Object.create()
+
+Creates a new object that inherits from an existing object.
+
+```js
+let obj2 = Object.create(obj);
+obj2.id = 20;
+obj2.phone = 6295432911;
+
+console.log(Object.keys(obj2)); // returns only own enumerable keys
+for(let key in obj2){
+    console.log(key); // returns own + inherited enumerable keys
+}
+```
+
+## 🖠️ Object.defineProperty()
+
+Controls behavior of object properties.
+
+* `writable`: can the value be changed?
+* `enumerable`: does it appear in loops?
+* `configurable`: can it be deleted or modified?
+
+```js
+Object.defineProperty(obj, 'name', {
+    value: "rohit",
+    writable: false,
+    enumerable: true,
+    configurable: false
+});
+```
+
+## 👀 Visibility with enumerable
+
+If a property has `enumerable: false`, it will not be shown in `for...in` or `Object.keys()`.
+
+```js
+Object.defineProperty(customer, "name", {
+    enumerable: false
+});
+## 📋 Object.keys()
+
+Returns an array of the object’s **own enumerable** keys.
+
+```js
+console.log(Object.keys(obj2));
+```
+
+## 🦾 Inherited vs Own Properties
+
+* `Object.keys(obj)` → only own properties
+* `for...in` → own + inherited (if enumerable)
+
+## 🧮 Arrays and for...in
+
+Avoid using `for...in` with arrays. It includes index + any custom keys.
+
+```js
+const arr = [10, 20, 30];
+arr.name = "Rohit";
+
+for(let key in arr){
+    console.log(key); // outputs 0, 1, 2, name
+}
+```
+
+## ♻️ Override Object.prototype.toString
+
+```js
+Object.defineProperty(Object.prototype, 'toString', {
+    enumerable: true
+});
+
+for(let key in customer){
+    console.log(key); // now includes 'toString' if enumerable is true
+}
+📝 **Summary**
+
+* `for...in` is powerful but should be used with care.
+* Use `Object.create()` to inherit.
+* Use `Object.defineProperty()` to control property behavior.
+* Prefer `Object.keys()` when you only want own properties.
+* Avoid `for...in` with arrays.
+//==========================================================
 
 //===================================================
 // ✅ End of Combined Learning File
