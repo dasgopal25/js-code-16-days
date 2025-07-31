@@ -1583,6 +1583,189 @@ for(let key in customer){
 * Prefer `Object.keys()` when you only want own properties.
 * Avoid `for...in` with arrays.
 //==========================================================
+# Lecture 14: Callback Functions | `forEach`, `filter`, `map`, `reduce` in JavaScript
+
+This lesson covers the use of callback functions and higher-order array methods like `forEach`, `filter`, `map`, and also different loop types.
+
+---
+
+## 🔐 Object.defineProperty (Immutability)
+
+```js
+let user = {
+    name: "rohit",
+    age: 30
+};
+
+Object.defineProperty(user, 'name', {
+    writable: false
+});
+
+user.name = "mohit"; // This will not change the name due to writable: false
+console.log(Object.getOwnPropertyDescriptor(user, "name"));
+```
+
+**Note:** Used to prevent modification of object properties — useful for data protection.
+
+---
+
+## 🔁 Looping Over Arrays & Strings
+
+### ✅ `for...of` (Good for arrays and strings)
+
+```js
+const arr = [10, 20, 11, 18, 13];
+for (let value of arr) {
+    console.log(value);
+}
+
+let str = "Rohit is Good Boy";
+for (let value of str) {
+    console.log(value);
+}
+```
+
+### ❌ `for...of` on objects — Not allowed
+
+```js
+const obj = {
+    name: "Chavvi",
+    age: 22,
+    gender: "female"
+};
+
+// ❌ for...of will not work
+// ✅ Use Object.keys instead
+for (let value of Object.keys(obj)) {
+    console.log(value, obj[value]);
+}
+```
+
+---
+
+## 🔄 `forEach()` – Loop with Callback
+
+```js
+let arr = [10, 20, 30, 40, 50];
+
+arr.forEach(function (num) {
+    console.log(num);
+});
+
+arr.forEach((num, index, a) => {
+    a[index] = num * 2; // Modifying array
+});
+console.log(arr); // [20, 40, 60, 80, 100]
+```
+
+---
+
+## 🔍 `filter()` – Return elements based on condition
+
+```js
+let arr = [10, 22, 33, 41, 50];
+const result = arr.filter((num) => num % 2 === 0);
+console.log(result); // [10, 22, 50]
+
+const students = [
+    { name: "Rohan", age: 22, marks: 70 },
+    { name: "Mohan", age: 24, marks: 80 },
+    { name: "Darshan", age: 28, marks: 30 },
+    { name: "Mohit", age: 32, marks: 40 },
+    { name: "Shadik", age: 12, marks: 90 },
+];
+
+const passed = students.filter(({ marks }) => marks > 50);
+console.log(passed);
+```
+
+---
+
+## 🔄 `map()` – Transform elements
+
+```js
+const arr1 = [1, 2, 4, 5];
+const result1 = arr1.map((num, index) => num * index);
+console.log(result1); // [0, 2, 8, 15]
+
+const result2 = arr1
+    .filter((num) => num % 2 === 0)
+    .map((num) => num * num)
+    .map((num) => num / 2);
+console.log(result2);
+```
+
+---
+
+## 🧮 `reduce()` – Accumulate values
+
+---
+
+## 🧪 Comparison: `for`, `for...in`, `for...of`, `forEach`
+
+```js
+const total = function () {
+    let arr = [5, 6, 7, 4, 8, 3];
+
+    console.log("For loop:");
+    for (let i = 0; i < arr.length; i++) {
+        console.log(arr[i], i);
+    }
+
+    console.log("For in:");
+    for (let key in arr) {
+        console.log(key); // returns index
+    }
+
+    console.log("For of:");
+    for (let value of arr) {
+        console.log(value);
+    }
+
+    console.log("ForEach:");
+    arr.forEach((num, index) => {
+        console.log(num);
+    });
+};
+
+total();
+```
+
+---
+
+## 🔗 Combining `filter()` and `map()`
+
+```js
+let arr = [5, 6, 7, 4, 8, 3];
+
+let result = arr.filter((num) => num % 2 === 0);
+console.log(result); // Even numbers
+
+let result1 = arr.map((num) => num * num);
+console.log(result1); // Squares
+```
+
+---
+
+## ✅ Summary
+
+| Method      | Purpose                            | Returns        |
+| ----------- | ---------------------------------- | -------------- |
+| `forEach()` | Loop through each item (no return) | `undefined`    |
+| `filter()`  | Filters based on a condition       | Filtered array |
+| `map()`     | Transforms each item               | New array      |
+| `reduce()`  | Reduces array to a single value    | Any value      |
+| `for...of`  | Loops through values               | Value          |
+| `for...in`  | Loops through keys                 | Key            |
+
+---
+
+> **Note:** Use `for...of` for arrays & strings, `Object.keys()` for objects, and avoid `for...of` directly on objects.
+
+---
+
+🧠 **Tip**: Always remember, `forEach`, `filter`, and `map` take a **callback function** as an argument!
+//========================================================================
 
 //===================================================
 // ✅ End of Combined Learning File
