@@ -1731,8 +1731,6 @@ const total = function () {
 total();
 ```
 
----
-
 ## 🔗 Combining `filter()` and `map()`
 
 ```js

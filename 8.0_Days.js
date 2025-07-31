@@ -130,6 +130,7 @@ arr.forEach((num,index,array) => {
 });
 }
 
+
 //setInterval(total,2000);
 
 let arr = [5,6,7,4,8,3];
