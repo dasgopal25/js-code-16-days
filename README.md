@@ -1760,10 +1760,1095 @@ console.log(result1); // Squares
 
 > **Note:** Use `for...of` for arrays & strings, `Object.keys()` for objects, and avoid `for...of` directly on objects.
 
----
-
-🧠 **Tip**: Always remember, `forEach`, `filter`, and `map` take a **callback function** as an argument!
 //========================================================================
+# Lecture 16: Reduce, Sets and Maps
+
+## Table of Contents
+- [Overview](#overview)
+- [Array.reduce()](#arrayreduce)
+- [Sets](#sets)
+- [Maps](#maps)
+- [Practical Examples](#practical-examples)
+- [Performance Considerations](#performance-considerations)
+- [Best Practices](#best-practices)
+- [Common Pitfalls](#common-pitfalls)
+- [Exercises](#exercises)
+
+## Overview
+
+This lecture covers three powerful JavaScript features that are essential for modern web development:
+
+1. **Array.reduce()** - A method for transforming arrays into single values
+2. **Sets** - Collections of unique values
+3. **Maps** - Key-value pairs with enhanced functionality over objects
+
+## Array.reduce()
+
+### What is reduce()?
+
+The `reduce()` method executes a reducer function on each element of an array, resulting in a single output value. It's one of the most powerful array methods in JavaScript.
+
+### Syntax
+
+```
+
+### Exercise 3: Sets - Remove Duplicates from Lecture Array
+```javascript
+// Using the lecture fruit array with Sets
+let fruits = ["Apple","Apple", "Banana", "Mango", "Orange", "Grapes", "Pineapple", "Papaya", "Strawberry"];
+
+// Method 1: Using Set to remove duplicates
+const uniqueFruits = [...new Set(fruits)];
+console.log(uniqueFruits);
+// Output: ["Apple", "Banana", "Mango", "Orange", "Grapes", "Pineapple", "Papaya", "Strawberry"]
+
+// Method 2: Count unique fruits
+const uniqueCount = new Set(fruits).size;
+console.log(`Total unique fruits: ${uniqueCount}`); // 8
+```
+
+### Exercise 4: Maps - Store Fruit Prices
+```javascript
+// Create a Map to store fruit prices
+const fruitPrices = new Map([
+    ['Apple', 2.50],
+    ['Banana', 1.20],
+    ['Orange', 3.00],
+    ['Grapes', 4.50]
+]);
+
+// Calculate total cost for lecture fruit array
+let fruits = ["Apple","Apple", "Banana", "Orange", "Grapes"];
+const totalCost = fruits.reduce((total, fruit) => {
+    const price = fruitPrices.get(fruit) || 0;
+    return total + price;
+}, 0);
+
+console.log(`Total cost: ${totalCost.toFixed(2)}`);
+```
+
+### Exercise 5: Combining All Concepts
+```javascript
+// Advanced exercise combining reduce, Sets, and Maps
+function analyzeFruitInventory(fruits) {
+    const prices = new Map([
+        ['Apple', 2.50],
+        ['Banana', 1.20],
+        ['Orange', 3.00],
+        ['Grapes', 4.50],
+        ['Mango', 2.80],
+        ['Pineapple', 5.00],
+        ['Papaya', 3.50],
+        ['Strawberry', 6.00]
+    ]);
+    
+    const analysis = fruits.reduce((acc, fruit) => {
+        // Count occurrences
+        acc.counts.set(fruit, (acc.counts.get(fruit) || 0) + 1);
+        
+        // Calculate total value
+        const price = prices.get(fruit) || 0;
+        acc.totalValue += price;
+        
+        return acc;
+    }, {
+        counts: new Map(),
+        totalValue: 0,
+        uniqueFruits: new Set(fruits)
+    });
+    
+    return {
+        fruitCounts: Object.fromEntries(analysis.counts),
+        totalFruits: fruits.length,
+        uniqueFruits: analysis.uniqueFruits.size,
+        totalValue: analysis.totalValue.toFixed(2),
+        averagePrice: (analysis.totalValue / fruits.length).toFixed(2)
+    };
+}
+
+// Test with lecture data
+let fruits = ["Apple","Apple", "Banana", "Mango", "Orange", "Grapes", "Pineapple", "Papaya", "Strawberry"];
+console.log(analyzeFruitInventory(fruits));
+```
+
+## Summary
+
+This lecture covered three powerful JavaScript features with practical examples:
+
+1. **Array.reduce()**: Transform arrays into single values using accumulator patterns
+2. **Sets**: Store unique values with efficient lookup and set operations  
+3. **Maps**: Key-value pairs with any data type as keys
+
+### Key Takeaways from Lecture Examples:
+
+#### Array.reduce():
+- Use `reduce()` with proper accumulator initialization: `reduce(callback, initialValue)`
+- `hasOwnProperty()` is useful for safe property checking in objects
+- Always return the accumulator in reduce functions
+- Common pattern for counting: `acc[item] = (acc[item] || 0) + 1`
+
+#### Object Property Access:
+- **Dot notation**: `obj.property` (for static property names)
+- **Bracket notation**: `obj["property"]` or `obj[variable]` (for dynamic property names)
+- Use `hasOwnProperty()` to check if property exists on object itself
+
+#### Sets:
+- Automatically handle uniqueness: `new Set([1,2,2,3])` → `{1,2,3}`
+- Efficient membership testing: `set.has(value)`
+- Easy array deduplication: `[...new Set(array)]`
+- Set operations: union `[...set1, ...set2]`, intersection `[...set1].filter(x => set2.has(x))`
+- Iteration: `for...of` loop or `forEach()` method
+
+#### Maps:
+- **Keys can be any type**: numbers, strings, objects (unlike regular objects)
+- Better performance for frequent additions/deletions
+- Maintains insertion order
+- Size property: `map.size`
+- Iteration: `for (let [key, value] of map)`
+- **Cannot use bracket notation**: Use `.get(key)` and `.set(key, value)`
+
+### Objects vs Maps vs Sets Comparison:
+
+| Feature | Object | Map | Set |
+|---------|--------|-----|-----|
+| Keys | Strings/Symbols only | Any type | N/A (values only) |
+| Size | `Object.keys(obj).length` | `map.size` | `set.size` |
+| Iteration | `for...in`, `Object.entries()` | `for...of`, `.forEach()` | `for...of`, `.forEach()` |
+| Performance | Good for records | Better for frequent changes | Best for uniqueness |
+| Use Case | Data records | Key-value with complex keys | Unique collections |
+
+### Common Patterns from Lecture:
+- **Counting occurrences**: `acc[item] = (acc[item] || 0) + 1` with reduce
+- **Removing duplicates**: `[...new Set(array)]`
+- **Dynamic property access**: `obj[variableName] = value`
+- **Set operations**: Use spread operator and filter for union/intersection
+- **Safe property checking**: `obj.hasOwnProperty(prop)` before accessing
+
+### Real-World Applications Demonstrated:
+1. **User ID validation** with Sets
+2. **Inventory tracking** with dynamic object properties  
+3. **Data deduplication** with Sets
+4. **Flexible key-value storage** with Maps
+5. **Data analysis and counting** with reduce
+
+### Next Steps:
+- Practice combining these concepts for complex data manipulation
+- Explore performance implications in larger datasets
+- Consider when to use each structure based on your specific needs
+- Learn about WeakMap and WeakSet for advanced use cases
+
+These concepts are essential for modern JavaScript development and form the foundation for efficient data manipulation and algorithm implementation.javascript
+array.reduce(callback(accumulator, currentValue, currentIndex, array), initialValue)
+```
+
+### Parameters
+
+- **callback**: Function to execute on each element
+  - **accumulator**: The accumulated value previously returned
+  - **currentValue**: The current element being processed
+  - **currentIndex** (optional): Index of current element
+  - **array** (optional): The array being processed
+- **initialValue** (optional): Initial value for the accumulator
+
+### Basic Examples
+
+#### 1. Sum of Numbers
+```javascript
+// Basic sum example from lecture
+const arr = [10, 20, 30, 40, 50];
+const result = arr.reduce((acc, curr) => acc + curr, 0);
+console.log(result); // 150
+```
+
+#### 2. Finding Maximum Value
+```javascript
+const numbers = [10, 5, 8, 20, 3];
+const max = numbers.reduce((acc, curr) => Math.max(acc, curr));
+console.log(max); // 20
+```
+
+#### 3. Counting Occurrences - Lecture Example
+```javascript
+// Original lecture example with oranges, apples, bananas
+let arr = ["orange","apple","banana","orange","apple","banana","orange","grapes"];
+
+// Method 1: Using hasOwnProperty
+const result = arr.reduce((acc, curr) => {
+    if(acc.hasOwnProperty(curr))
+        acc[curr]++;
+    else
+        acc[curr] = 1;
+    return acc;
+}, {});
+console.log(result); // { orange: 3, apple: 2, banana: 2, grapes: 1 }
+
+// Method 2: Using logical OR (cleaner approach)
+const fruits = ['apple', 'banana', 'apple', 'orange', 'banana', 'apple'];
+const count = fruits.reduce((acc, fruit) => {
+  acc[fruit] = (acc[fruit] || 0) + 1;
+  return acc;
+}, {});
+console.log(count); // { apple: 3, banana: 2, orange: 1 }
+```
+
+#### 4. Extended Fruits Example from Lecture
+```javascript
+let fruits = ["Apple","Apple", "Banana", "Mango", "Orange", "Grapes", "Pineapple", "Papaya", "Strawberry"];
+let result = fruits.reduce((acc, curr) => {
+    if(acc.hasOwnProperty(curr))
+        acc[curr]++;
+    else
+        acc[curr] = 1;
+    return acc;
+}, {});
+console.log(result);
+// Output: { Apple: 2, Banana: 1, Mango: 1, Orange: 1, Grapes: 1, Pineapple: 1, Papaya: 1, Strawberry: 1 }
+```
+
+#### 4. Flattening Arrays
+```javascript
+const nested = [[1, 2], [3, 4], [5, 6]];
+const flattened = nested.reduce((acc, curr) => acc.concat(curr), []);
+console.log(flattened); // [1, 2, 3, 4, 5, 6]
+```
+
+#### 5. Grouping Objects
+```javascript
+const people = [
+  { name: 'Alice', age: 25 },
+  { name: 'Bob', age: 30 },
+  { name: 'Charlie', age: 25 },
+  { name: 'David', age: 30 }
+];
+
+const groupedByAge = people.reduce((acc, person) => {
+  const age = person.age;
+  if (!acc[age]) {
+    acc[age] = [];
+  }
+  acc[age].push(person);
+  return acc;
+}, {});
+
+console.log(groupedByAge);
+// {
+//   25: [{ name: 'Alice', age: 25 }, { name: 'Charlie', age: 25 }],
+//   30: [{ name: 'Bob', age: 30 }, { name: 'David', age: 30 }]
+// }
+```
+
+### Advanced reduce() Examples
+
+#### Creating a Pipeline
+```javascript
+const pipeline = [
+  x => x * 2,
+  x => x + 1,
+  x => x * x
+];
+
+const result = pipeline.reduce((acc, fn) => fn(acc), 5);
+console.log(result); // ((5 * 2) + 1)² = 121
+```
+
+#### Building HTML from Data
+```javascript
+const users = [
+  { name: 'John', email: 'john@example.com' },
+  { name: 'Jane', email: 'jane@example.com' }
+];
+
+const html = users.reduce((acc, user) => {
+  return acc + `<div><h3>${user.name}</h3><p>${user.email}</p></div>`;
+}, '');
+
+console.log(html);
+```
+
+## Sets
+
+### What is a Set?
+
+A Set is a collection of unique values. Unlike arrays, Sets automatically prevent duplicate values and provide methods for set operations.
+
+### Creating Sets
+
+```javascript
+// Empty set
+const emptySet = new Set();
+
+// Set from array
+const numbersSet = new Set([1, 2, 3, 4, 5]);
+
+// Set with duplicates (automatically removed)
+const uniqueSet = new Set([1, 2, 2, 3, 3, 4]);
+console.log(uniqueSet); // Set { 1, 2, 3, 4 }
+```
+
+### Set Methods
+
+#### Basic Operations
+```javascript
+const mySet = new Set();
+
+// Adding values
+mySet.add(1);
+mySet.add(2);
+mySet.add(2); // Duplicate, won't be added
+console.log(mySet); // Set { 1, 2 }
+
+// Checking existence
+console.log(mySet.has(1)); // true
+console.log(mySet.has(3)); // false
+
+// Getting size
+console.log(mySet.size); // 2
+
+// Deleting values
+mySet.delete(1);
+console.log(mySet); // Set { 2 }
+
+// Clearing all values
+mySet.clear();
+console.log(mySet); // Set {}
+```
+
+#### Iterating Sets
+```javascript
+const colors = new Set(['red', 'green', 'blue']);
+
+// Using for...of
+for (const color of colors) {
+  console.log(color);
+}
+
+// Using forEach
+colors.forEach(color => console.log(color));
+
+// Converting to array
+const colorArray = [...colors];
+console.log(colorArray); // ['red', 'green', 'blue']
+```
+
+### Practical Set Examples
+
+#### 1. Removing Duplicates from Array
+```javascript
+const duplicateNumbers = [1, 2, 2, 3, 4, 4, 5];
+const uniqueNumbers = [...new Set(duplicateNumbers)];
+console.log(uniqueNumbers); // [1, 2, 3, 4, 5]
+```
+
+#### 2. Set Operations
+```javascript
+const setA = new Set([1, 2, 3, 4]);
+const setB = new Set([3, 4, 5, 6]);
+
+// Union
+const union = new Set([...setA, ...setB]);
+console.log(union); // Set { 1, 2, 3, 4, 5, 6 }
+
+// Intersection
+const intersection = new Set([...setA].filter(x => setB.has(x)));
+console.log(intersection); // Set { 3, 4 }
+
+// Difference
+const difference = new Set([...setA].filter(x => !setB.has(x)));
+console.log(difference); // Set { 1, 2 }
+```
+
+#### 3. Tracking Unique Visitors
+```javascript
+const visitors = new Set();
+
+function trackVisitor(userId) {
+  visitors.add(userId);
+  console.log(`Total unique visitors: ${visitors.size}`);
+}
+
+trackVisitor('user1');
+trackVisitor('user2');
+trackVisitor('user1'); // Won't increase count
+```
+
+## Maps
+
+### What is a Map?
+
+A Map is a collection of key-value pairs where keys can be of any type (unlike objects where keys are strings/symbols). Maps maintain insertion order and provide better performance for frequent additions and removals.
+
+### Creating Maps
+
+```javascript
+// Empty map
+const emptyMap = new Map();
+
+// Map with initial values
+const userRoles = new Map([
+  ['john', 'admin'],
+  ['jane', 'user'],
+  ['bob', 'moderator']
+]);
+
+// Using set method
+const scores = new Map();
+scores.set('Alice', 95);
+scores.set('Bob', 87);
+```
+
+### Map Methods
+
+#### Basic Operations
+```javascript
+const gameScores = new Map();
+
+// Setting values
+gameScores.set('player1', 1000);
+gameScores.set('player2', 1500);
+gameScores.set('player1', 1200); // Updates existing value
+
+// Getting values
+console.log(gameScores.get('player1')); // 1200
+console.log(gameScores.get('player3')); // undefined
+
+// Checking existence
+console.log(gameScores.has('player1')); // true
+console.log(gameScores.has('player3')); // false
+
+// Getting size
+console.log(gameScores.size); // 2
+
+// Deleting entries
+gameScores.delete('player2');
+console.log(gameScores.size); // 1
+
+// Clearing all entries
+gameScores.clear();
+```
+
+#### Iterating Maps
+```javascript
+const countries = new Map([
+  ['US', 'United States'],
+  ['UK', 'United Kingdom'],
+  ['CA', 'Canada']
+]);
+
+// Iterating over entries
+for (const [code, name] of countries) {
+  console.log(`${code}: ${name}`);
+}
+
+// Using forEach
+countries.forEach((name, code) => {
+  console.log(`${code}: ${name}`);
+});
+
+// Getting keys only
+for (const code of countries.keys()) {
+  console.log(code);
+}
+
+// Getting values only
+for (const name of countries.values()) {
+  console.log(name);
+}
+```
+
+### Advanced Map Examples
+
+#### 1. Caching Function Results
+```javascript
+const cache = new Map();
+
+function expensiveOperation(n) {
+  if (cache.has(n)) {
+    console.log('Cache hit!');
+    return cache.get(n);
+  }
+  
+  console.log('Computing...');
+  const result = n * n * n; // Expensive computation
+  cache.set(n, result);
+  return result;
+}
+
+console.log(expensiveOperation(5)); // Computing... 125
+console.log(expensiveOperation(5)); // Cache hit! 125
+```
+
+#### 2. Using Objects as Keys
+```javascript
+const elementData = new Map();
+
+const div1 = document.createElement('div');
+const div2 = document.createElement('div');
+
+elementData.set(div1, { id: 'container', visible: true });
+elementData.set(div2, { id: 'sidebar', visible: false });
+
+console.log(elementData.get(div1)); // { id: 'container', visible: true }
+```
+
+#### 3. Frequency Counter with Maps
+```javascript
+function countCharacters(str) {
+  const charCount = new Map();
+  
+  for (const char of str) {
+    charCount.set(char, (charCount.get(char) || 0) + 1);
+  }
+  
+  return charCount;
+}
+
+const result = countCharacters('hello');
+console.log(result); // Map { 'h' => 1, 'e' => 1, 'l' => 2, 'o' => 1 }
+```
+
+## Practical Examples
+
+### 1. Data Processing Pipeline
+```javascript
+const salesData = [
+  { product: 'laptop', category: 'electronics', price: 1000, quantity: 2 },
+  { product: 'mouse', category: 'electronics', price: 20, quantity: 5 },
+  { product: 'book', category: 'education', price: 15, quantity: 3 },
+  { product: 'tablet', category: 'electronics', price: 500, quantity: 1 }
+];
+
+// Calculate total revenue by category
+const revenueByCategory = salesData
+  .map(item => ({ ...item, revenue: item.price * item.quantity }))
+  .reduce((acc, item) => {
+    acc.set(item.category, (acc.get(item.category) || 0) + item.revenue);
+    return acc;
+  }, new Map());
+
+console.log(revenueByCategory);
+// Map { 'electronics' => 2600, 'education' => 45 }
+```
+
+### 2. User Permission System
+```javascript
+class PermissionSystem {
+  constructor() {
+    this.userPermissions = new Map();
+    this.rolePermissions = new Map([
+      ['admin', new Set(['read', 'write', 'delete'])],
+      ['user', new Set(['read'])],
+      ['moderator', new Set(['read', 'write'])]
+    ]);
+  }
+  
+  assignRole(userId, role) {
+    this.userPermissions.set(userId, role);
+  }
+  
+  hasPermission(userId, permission) {
+    const role = this.userPermissions.get(userId);
+    const permissions = this.rolePermissions.get(role);
+    return permissions ? permissions.has(permission) : false;
+  }
+  
+  getUserPermissions(userId) {
+    const role = this.userPermissions.get(userId);
+    return this.rolePermissions.get(role) || new Set();
+  }
+}
+
+const permissions = new PermissionSystem();
+permissions.assignRole('user1', 'admin');
+permissions.assignRole('user2', 'user');
+
+console.log(permissions.hasPermission('user1', 'delete')); // true
+console.log(permissions.hasPermission('user2', 'write')); // false
+```
+
+### 3. Event Tracking System
+```javascript
+class EventTracker {
+  constructor() {
+    this.events = [];
+    this.uniqueUsers = new Set();
+    this.eventCounts = new Map();
+  }
+  
+  trackEvent(userId, eventType, timestamp = Date.now()) {
+    const event = { userId, eventType, timestamp };
+    this.events.push(event);
+    this.uniqueUsers.add(userId);
+    
+    this.eventCounts.set(eventType, (this.eventCounts.get(eventType) || 0) + 1);
+  }
+  
+  getStats() {
+    return {
+      totalEvents: this.events.length,
+      uniqueUsers: this.uniqueUsers.size,
+      eventBreakdown: Object.fromEntries(this.eventCounts),
+      avgEventsPerUser: this.events.length / this.uniqueUsers.size
+    };
+  }
+  
+  getTopEvents(limit = 5) {
+    return [...this.eventCounts.entries()]
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, limit)
+      .reduce((acc, [event, count]) => {
+        acc[event] = count;
+        return acc;
+      }, {});
+  }
+}
+
+const tracker = new EventTracker();
+tracker.trackEvent('user1', 'click');
+tracker.trackEvent('user2', 'view');
+tracker.trackEvent('user1', 'click');
+tracker.trackEvent('user3', 'purchase');
+
+console.log(tracker.getStats());
+```
+
+## Performance Considerations
+
+### When to Use Each Structure
+
+#### Use Arrays when:
+- You need ordered, indexed access
+- You frequently access elements by position
+- You need array methods like `map`, `filter`, `reduce`
+
+#### Use Sets when:
+- You need unique values only
+- You frequently check for existence of values
+- You need set operations (union, intersection, difference)
+
+#### Use Maps when:
+- You need key-value associations
+- Keys are not strings or you need complex keys
+- You frequently add/remove entries
+- You need to maintain insertion order
+
+### Performance Comparison
+```javascript
+// Performance test example
+function performanceTest() {
+  const size = 100000;
+  const testData = Array.from({ length: size }, (_, i) => i);
+  
+  // Array lookup performance
+  console.time('Array includes');
+  testData.includes(size - 1);
+  console.timeEnd('Array includes');
+  
+  // Set lookup performance
+  const testSet = new Set(testData);
+  console.time('Set has');
+  testSet.has(size - 1);
+  console.timeEnd('Set has');
+  
+  // Object lookup performance
+  const testObj = testData.reduce((acc, val) => {
+    acc[val] = true;
+    return acc;
+  }, {});
+  console.time('Object property');
+  console.log(testObj[size - 1] !== undefined);
+  console.timeEnd('Object property');
+  
+  // Map lookup performance
+  const testMap = new Map(testData.map(val => [val, true]));
+  console.time('Map has');
+  testMap.has(size - 1);
+  console.timeEnd('Map has');
+}
+
+// performanceTest();
+```
+
+## Best Practices
+
+### 1. Use reduce() Wisely
+```javascript
+// Good: Clear and readable
+const sum = numbers.reduce((acc, num) => acc + num, 0);
+
+// Avoid: Complex logic in reduce
+// Instead, break it down or use other methods
+const result = data
+  .filter(item => item.active)
+  .map(item => item.value)
+  .reduce((acc, val) => acc + val, 0);
+```
+
+### 2. Leverage Set for Uniqueness
+```javascript
+// Good: Remove duplicates efficiently
+const uniqueIds = [...new Set(userIds)];
+
+// Good: Check membership efficiently
+const validIds = new Set(['id1', 'id2', 'id3']);
+if (validIds.has(userId)) {
+  // Process user
+}
+```
+
+### 3. Use Map for Complex Keys
+```javascript
+// Good: Using objects as keys
+const elementStyles = new Map();
+elementStyles.set(domElement, { color: 'red', size: 'large' });
+
+// Good: Non-string keys
+const resultCache = new Map();
+resultCache.set(42, 'answer');
+resultCache.set('42', 'string answer');
+```
+
+### 4. Chain Operations Effectively
+```javascript
+// Good: Readable chain
+const processedData = rawData
+  .filter(item => item.isValid)
+  .map(item => ({ ...item, processed: true }))
+  .reduce((groups, item) => {
+    const key = item.category;
+    groups[key] = groups[key] || [];
+    groups[key].push(item);
+    return groups;
+  }, {});
+```
+
+## Common Pitfalls
+
+### 1. Mutating Accumulator in reduce()
+```javascript
+// Wrong: Mutating arrays/objects without returning
+const wrong = arr.reduce((acc, item) => {
+  acc.push(item * 2); // Missing return
+}, []);
+
+// Correct: Always return the accumulator
+const correct = arr.reduce((acc, item) => {
+  acc.push(item * 2);
+  return acc;
+}, []);
+```
+
+### 2. Not Providing Initial Value
+```javascript
+const numbers = [];
+// Wrong: Will throw error on empty array
+const sum = numbers.reduce((acc, num) => acc + num);
+
+// Correct: Provide initial value
+const sum = numbers.reduce((acc, num) => acc + num, 0);
+```
+
+### 3. Confusing Map and Object
+```javascript
+// Object: String keys only, prototype pollution risk
+const obj = {};
+obj['key'] = 'value';
+
+// Map: Any type keys, no prototype, better for dynamic keys
+const map = new Map();
+map.set('key', 'value');
+map.set(42, 'number key');
+```
+
+### 4. Set Equality Issues
+```javascript
+const set = new Set();
+const obj1 = { id: 1 };
+const obj2 = { id: 1 };
+
+set.add(obj1);
+set.add(obj2); // Different objects, both added
+
+console.log(set.size); // 2, not 1!
+
+// Solution: Use primitive values or maintain object references
+```
+
+## Exercises
+
+## Additional Lecture Code Explanations
+
+### Understanding Object Property Access
+
+The lecture demonstrates different ways to access and set object properties:
+
+```javascript
+let obj = {
+    name: "rohit",
+    age: 10,
+    orange: 1,
+}
+
+let curr = "apple";
+
+// Three ways to set object properties:
+// obj.apple = 1;        // Dot notation (static)
+// obj["apple"] = 1;     // Bracket notation (static)
+// obj[curr] = 1;        // Bracket notation (dynamic)
+
+// Using hasOwnProperty for safe property checking
+if(obj.hasOwnProperty(curr))
+    obj[curr]++;
+else
+   obj[curr] = 1;
+
+console.log(obj); // { name: "rohit", age: 10, orange: 1, apple: 1 }
+```
+
+**Key Points:**
+- Dot notation: `obj.property` (for known property names)
+- Bracket notation: `obj["property"]` or `obj[variable]` (for dynamic property names)
+- `hasOwnProperty()` checks if property exists on the object itself (not inherited)
+
+### Maps - Enhanced Key-Value Storage
+
+#### Creating Maps
+```javascript
+// Method 1: Empty Map then add values
+const map1 = new Map();
+map1.set(3, 90);
+map1.set("Rohit", 45);
+map1.set(20, "Mohan");
+// map1.set("Rohit", 40); // This updates the existing value
+
+// Method 2: Initialize with array of [key, value] pairs
+const map1 = new Map([[4,"rohit"],["Moahn","rohan"],[30,9], [63,78]]);
+```
+
+#### Map Operations from Lecture
+```javascript
+const map1 = new Map();
+map1.set(3, 90);
+map1.set("Rohit", 45);
+map1.set(20, "Mohan");
+
+// Delete entries
+map1.delete(3);
+
+// Check if key exists
+console.log(map1.has("Rohit")); // true
+
+// Get size
+console.log(map1.size); // 2
+
+// Clear all entries
+map1.clear();
+console.log(map1); // Map(0) {}
+```
+
+#### Iterating Maps
+```javascript
+const map1 = new Map([[4,"rohit"],["Moahn","rohan"],[30,9], [63,78]]);
+
+// Using for...of loop to get key-value pairs
+for(let [key, value] of map1) {
+    console.log(key, value);
+}
+
+// Note: You cannot access Map values like arrays
+// console.log(map1["4"]); // This won't work!
+// Use map1.get(4) instead
+```
+
+#### Objects vs Maps - Key Differences
+```javascript
+// Object limitations:
+// - Keys: only strings or symbols
+// - Prototype pollution possible
+// - Size calculation requires Object.keys()
+
+// Map advantages:
+// - Keys: any type (number, string, object, etc.)
+// - No prototype pollution
+// - Built-in size property
+// - Maintains insertion order
+// - Better performance for frequent additions/deletions
+```
+
+### Sets - Unique Value Collections
+
+#### Basic Set Operations
+```javascript
+// Creating sets
+let arr = [10, 20, 10, 30, 10];
+const set1 = new Set([10, 20, 30, 40, 10, 30]); // Duplicates automatically removed
+console.log(typeof set1); // "object"
+
+// Adding values
+const set1 = new Set();
+set1.add(4);
+set1.add(6);
+set1.add("Rohit");
+set1.add(30);
+
+// Delete values
+set1.delete(6);
+
+// Check size
+console.log(set1.size); // 3
+```
+
+#### Practical Set Example - User ID Validation
+```javascript
+// Real-world example: checking unique user IDs
+const user_id = new Set(["rohit_negi9", "Mohi_91", "ravi.93", "chavi_90", "sumit._90"]);
+let new_user = "rohit_negi9";
+console.log(user_id.has(new_user)); // true (user already exists)
+
+// Clear all user IDs
+user_id.clear();
+console.log(user_id); // Set(0) {}
+```
+
+#### Removing Duplicates from Arrays
+```javascript
+let arr = [10, 30, 20, 10, 40, 50, 30];
+const set1 = new Set(arr);
+arr = [...set1]; // Convert back to array
+console.log(arr); // [10, 30, 20, 40, 50] - duplicates removed
+```
+
+#### Set Operations - Union and Intersection
+```javascript
+let set1 = new Set([10, 20, 30, 40, 50]);
+let set2 = new Set([10, 20, 70, 40]);
+
+// Union - combine all unique elements
+let set3 = new Set([...set1, ...set2]);
+console.log(set3); // Set {10, 20, 30, 40, 50, 70}
+
+// Intersection - common elements only
+const result = new Set([...set1].filter((num) => set2.has(num)));
+console.log(result); // Set {10, 20, 40}
+```
+
+#### Iterating Over Sets
+```javascript
+let set1 = new Set([10, 20, 30, 40, 50]);
+
+// Method 1: for...of loop
+for(let value of set1) {
+    console.log(value);
+}
+
+// Method 2: forEach method
+set1.forEach((value) => console.log(value));
+```
+
+### Understanding the Counting Logic
+
+The lecture example demonstrates two important concepts:
+
+#### 1. Object Property Checking with hasOwnProperty()
+```javascript
+// The lecture approach
+if(acc.hasOwnProperty(curr))
+    acc[curr]++;
+else
+    acc[curr] = 1;
+```
+
+This approach:
+- Uses `hasOwnProperty()` to check if the property exists
+- Increments if exists, initializes to 1 if not
+- More explicit about property existence
+
+#### 2. Alternative Approaches
+
+```javascript
+// Using logical OR (shorter)
+acc[curr] = (acc[curr] || 0) + 1;
+
+// Using nullish coalescing (ES2020)
+acc[curr] = (acc[curr] ?? 0) + 1;
+
+// Using ternary operator
+acc[curr] = acc[curr] ? acc[curr] + 1 : 1;
+```
+
+### Step-by-Step Breakdown of Counting Process
+
+Let's trace through the lecture example:
+```javascript
+let arr = ["orange","apple","banana","orange","apple","banana","orange","grapes"];
+
+// Step by step execution:
+// Initial: acc = {}
+// Step 1: curr = "orange" → acc = { orange: 1 }
+// Step 2: curr = "apple"  → acc = { orange: 1, apple: 1 }
+// Step 3: curr = "banana" → acc = { orange: 1, apple: 1, banana: 1 }
+// Step 4: curr = "orange" → acc = { orange: 2, apple: 1, banana: 1 }
+// Step 5: curr = "apple"  → acc = { orange: 2, apple: 2, banana: 1 }
+// Step 6: curr = "banana" → acc = { orange: 2, apple: 2, banana: 2 }
+// Step 7: curr = "orange" → acc = { orange: 3, apple: 2, banana: 2 }
+// Step 8: curr = "grapes" → acc = { orange: 3, apple: 2, banana: 2, grapes: 1 }
+```
+
+## Exercises
+
+### Exercise 1: Enhanced Fruit Counter
+Extend the lecture example to also track the total count and most frequent fruit:
+
+```javascript
+function analyzeFruits(fruits) {
+    const analysis = fruits.reduce((acc, curr) => {
+        // Count occurrences
+        acc.counts[curr] = (acc.counts[curr] || 0) + 1;
+        
+        // Track total
+        acc.total++;
+        
+        // Track most frequent
+        if (!acc.mostFrequent || acc.counts[curr] > acc.counts[acc.mostFrequent]) {
+            acc.mostFrequent = curr;
+        }
+        
+        return acc;
+    }, { counts: {}, total: 0, mostFrequent: null });
+    
+    return analysis;
+}
+
+// Test with lecture data
+let fruits = ["Apple","Apple", "Banana", "Mango", "Orange", "Grapes"];
+console.log(analyzeFruits(fruits));
+```
+
+### Exercise 2: Advanced reduce()
+Create a function that takes an array of transactions and returns a summary object with total income, total expenses, and balance.
+
+```javascript
+const transactions = [
+  { type: 'income', amount: 1000, description: 'Salary' },
+  { type: 'expense', amount: 200, description: 'Groceries' },
+  { type: 'income', amount: 500, description: 'Freelance' },
+  { type: 'expense', amount: 100, description: 'Gas' }
+];
+
+function analyzeTransactions(transactions) {
+    return transactions.reduce((acc, transaction) => {
+        if (transaction.type === 'income') {
+            acc.totalIncome += transaction.amount;
+        } else {
+            acc.totalExpenses += transaction.amount;
+        }
+        acc.balance = acc.totalIncome - acc.totalExpenses;
+        return acc;
+    }, { totalIncome: 0, totalExpenses: 0, balance: 0 });
+}
+
+console.log(analyzeTransactions(transactions));
+// Expected: { totalIncome: 1500, totalExpenses: 300, balance: 1200 }
+//==================================================================================
 
 //===================================================
 // ✅ End of Combined Learning File
