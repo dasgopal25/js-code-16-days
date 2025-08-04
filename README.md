@@ -2870,7 +2870,7 @@ With the object model, JavaScript gets all the power it needs to create dynamic 
 
 *******************************************************************
 
-//DOM Days 19
+//DOM Days 19/Project and Accessing DOM Elements 20
 1: Accessing Element:
 
 
