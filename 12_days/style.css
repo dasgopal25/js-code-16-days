@@ -1,0 +1,49 @@
+/* Reset body defaults */
+body {
+    background-color: black;
+    color: white;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Outer container */
+#outer {
+    background-color: rgb(254, 254, 254); /* near-white */
+    width: 700px;
+    height: 300px;
+    margin: 190px auto 0; /* center horizontally + top margin */
+    border-radius: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: black;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+}
+
+/* Inner quote box */
+#inner {
+    width: 500px;
+    height: 100px;
+    background-color: rgb(25, 245, 25);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    padding: 10px 20px;
+    text-align: center;
+    color: rgb(242, 240, 242);
+    font-size: 18px;
+    font-weight: 500;
+    margin-top: 20px;
+    font-size:x-large;
+    font-weight: bolder;
+}
+
+/* Heading style */
+#outer h1 {
+    font-size: 32px;
+    margin-bottom: 10px;
+    color: #222;
+}
