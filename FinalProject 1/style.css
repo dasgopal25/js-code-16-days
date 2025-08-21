@@ -1,0 +1,71 @@
+/* General Styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background: #f7f7f7;
+  color: #171616;
+}
+
+/* Header */
+header {
+  background: linear-gradient(135deg, #6a11cb, #2575fc);
+  color: white;
+  text-align: center;
+  padding: 20px;
+}
+
+/* Grid layout */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+/* Restaurant Card */
+.card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  overflow: hidden;
+  transition: transform 0.2s ease;
+}
+.card:hover {
+  transform: translateY(-5px);
+}
+
+/* Image */
+.card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+/* Card Body */
+.card-body {
+  padding: 15px;
+}
+.card-body h2 {
+  margin: 0 0 10px;
+  font-size: 1.2rem;
+  color: #222;
+}
+.card-body p {
+  margin: 5px 0;
+  font-size: 0.9rem;
+}
+
+/* Highlights */
+.rating {
+  color: #eab308;
+  font-weight: bold;
+}
+.offer {
+  background: #e0f7e9;
+  color: #0a7d32;
+  font-weight: bold;
+  padding: 4px 6px;
+  border-radius: 6px;
+  display: inline-block;
+  margin-top: 5px;
+}
